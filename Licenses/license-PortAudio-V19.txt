@@ -1,6 +1,0 @@
-PortAudio License information is available from:
-http://portaudio.com/license.html
-
-They says that "the PortAudio licence is now a plain MIT licence".
-
-
