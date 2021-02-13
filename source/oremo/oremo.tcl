@@ -66,6 +66,7 @@ exec wish "$0" "$@"
 # - 画面構成変更（収録音がそこそこ長い文字列になっても表示可能に）
 # - その他
 
+package require Tk
 package require -exact snack 2.2
 #if {$::tcl_platform(platform) == "windows"} {
 #  ttk::style theme use clam ;#xpnative
@@ -74,9 +75,9 @@ package require -exact snack 2.2
 # package require Tktable
 # package require tkdnd
 
-source proc-genParam.tcl ;# oto.ini生成読み込み
-source proc.tcl          ;# サブルーチン読み込み
-source globalVar.tcl     ;# 大域変数読み込み
+source [file join [file dirname [info script]] proc-genParam.tcl ] ;# oto.ini生成読み込み
+source [file join [file dirname [info script]] proc.tcl ]          ;# サブルーチン読み込み
+source [file join [file dirname [info script]] globalVar.tcl ]     ;# 大域変数読み込み
 
 #---------------------------------------------------
 # main - メインルーチン (初期化)
@@ -90,8 +91,8 @@ set startup(makeRecListFromDir) 0
 set startup(choosesaveDir) 0
 set startup(initFile)     $topdir/oremo-init.tcl
 set startup(sysIniFile)   $topdir/oremo-setting.ini ;# フォルダ使用履歴などをシステムが保存するファイル
-set startup(textFile)     $topdir/message/oremo-text.tcl
-set startup(procTextFile) $topdir/message/proc-text.tcl
+set startup(textFile)     $topdir/assets/message/oremo/en/oremo-text.tcl
+set startup(procTextFile) $topdir/assets/message/oremo/en/proc-text.tcl
 
 #---------------------------------------------------
 # 引数チェック

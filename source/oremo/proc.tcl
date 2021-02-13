@@ -941,20 +941,10 @@ proc readTypeList {args} {
 proc fontSetting {} {
   global v t
 
-  switch $::tcl_platform(platform) {
-    unix {
-      font create bigkfont   -family mincho -size $v(bigFontSize)   -weight normal -slant roman
-      font create kfont      -family mincho -size $v(fontSize)      -weight normal -slant roman
-      font create smallkfont -family mincho -size $v(smallFontSize) -weight normal -slant roman
-      font create commkfont  -family mincho -size $v(commFontSize)  -weight normal -slant roman
-    }
-    windows {
-      font create bigkfont   -family $t(fontName) -size $v(bigFontSize)   -weight normal -slant roman
-      font create kfont      -family $t(fontName) -size $v(fontSize)      -weight normal -slant roman
-      font create smallkfont -family $t(fontName) -size $v(smallFontSize) -weight normal -slant roman
-      font create commkfont  -family $t(fontName) -size $v(commFontSize)  -weight normal -slant roman
-    }
-  }
+  font create bigkfont   -family $t(fontName) -size $v(bigFontSize)   -weight normal -slant roman
+  font create kfont      -family $t(fontName) -size $v(fontSize)      -weight normal -slant roman
+  font create smallkfont -family $t(fontName) -size $v(smallFontSize) -weight normal -slant roman
+  font create commkfont  -family $t(fontName) -size $v(commFontSize)  -weight normal -slant roman
 }
 
 #---------------------------------------------------
@@ -962,19 +952,19 @@ proc fontSetting {} {
 #
 proc execExternal {url} {
     global v t
-
-    if {$::tcl_platform(platform) == "windows"} {
-        if {[string match $::tcl_platform(os) "Windows NT"]} {
-            exec $::env(COMSPEC) /c start "" $url &
-        } {
-            exec start $url &
-        }
-    } else {
-        # atode, ここはせめてfirefoxにしないと。。
-        if [catch {exec sh -c "netscape -remote 'openURL($url)' -raise"} res] {
-            if [string match *netscape* $res] {
-                exec sh -c "netscape $url" &
+    switch $::tcl_platform(platform) {
+        "windows" {
+            if {[string match $::tcl_platform(os) "Windows NT"]} {
+                exec $::env(COMSPEC) /c start "" $url &
+            } {
+                exec start $url &
             }
+        }
+        "Darwin" {
+            exec "open" $url &
+        }
+        default {
+            exec "xdg-open" $url &
         }
     }
 }

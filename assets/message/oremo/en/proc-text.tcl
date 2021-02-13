@@ -6,7 +6,7 @@
 
 #
 
-set t(fontName) "Arial"
+set t(fontName) "Helvetica"
 
 
 
@@ -114,7 +114,11 @@ set t(readRecList,overwrite) "Comment File was found in voice list folder. Do yo
 
 # コメントファイルを読む
 
-set t(readCommentList,errMsg) "Could not load comment file."
+set t(readCommentList,errMsg)   "Could not load comment file."
+
+set t(readCommentList,doneMsg)  "\"\$commNum Comments Loaded\""
+
+set t(readCommentList,doneMsg2) "\"\$commNum Comments Loaded ( \$ignoreNum comments were duplicate)\""
 
 
 

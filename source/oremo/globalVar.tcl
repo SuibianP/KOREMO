@@ -19,15 +19,13 @@ exec wish "$0" "$@"
 set debug 0
 set v(appname) ""
 set v(version) ""
-if {$::tcl_platform(os) == "Darwin"} {
-  set topdir [file join [file dirname [info script]] ../../../..]  ;# for mac
-} elseif {[info exists ::starkit::topdir]} {
-  set topdir [file dirname [info nameofexecutable]]
+if {[info exists ::starkit::topdir]} {
+  set topdir [file normalize [file dirname [info nameofexecutable]]]
 } else {
-  set topdir [file dirname $argv0]
+  set topdir [file normalize [file dirname $argv0]/../../]
 }
-set v(recListFile) "$topdir/reclist.txt"   ;# 収録する音名リストファイル
-set v(typeListFile) "$topdir/typelist.txt" ;# 収録する発話タイプのリストファイル
+set v(recListFile) "$topdir/assets/list/reclist.txt"   ;# 収録する音名リストファイル
+set v(typeListFile) "$topdir/assets/list/typelist.txt" ;# 収録する発話タイプのリストファイル
 set v(saveDir) "$topdir/result"            ;# 録音した音を保存するディレクトリ
 set v(paramFile) "$v(saveDir)/oto.ini"     ;# 原音パラメータファイル
 set v(yaxisw) 40         ;# 縦軸表示の横幅
@@ -200,9 +198,9 @@ set startup(readTypeList) 1   ;# 1=起動時にtypelist.txtを読む
 set v(tempo) 120     ;# メトロノームのテンポ(bpm)
 set v(tempoMSec) [expr 60000.0 / $v(tempo)]  ;# メトロノームの1拍当りの秒数
 set v(playMetroStatus) 0  ;# 1=現在メトロノーム再生中, 0=現在再生してない
-set v(clickWav) "$topdir/guideBGM/click.wav" ;# メトロノームの音
-set v(bgmFile) "$topdir/guideBGM/F4-100bpm.wav" ;# 自動録音用BGM
-set v(bgmParamFile) "$topdir/guideBGM/F4-100bpm.txt" ;# 自動録音用BGM
+set v(clickWav) "$topdir/assets/guideBGM/click.wav" ;# メトロノームの音
+set v(bgmFile) "$topdir/assets/guideBGM/F4-100bpm.wav" ;# 自動録音用BGM
+set v(bgmParamFile) "$topdir/assets/guideBGM/F4-100bpm.txt" ;# 自動録音用BGM
 set v(setE) 1   ;# 1=右ブランク値をファイル末尾からの相対値にする。-1=左blankからの相対値にする
 
 array unset bgmParam
@@ -210,7 +208,7 @@ set bgmParam(autoRecStatus) 0
 
 # 先行発声チェック用の設定
 array unset uttTiming
-set uttTiming(clickWav) "$topdir/guideBGM/click.wav"        ;# メトロノームの音
+set uttTiming(clickWav) "$topdir/assets/guideBGM/click.wav"        ;# メトロノームの音
 set uttTiming(tempo) 100                                    ;# チェック速度[BPM]
 set uttTimingMSec(tempo) [expr 60000.0 / $uttTiming(tempo)] ;# チェック速度[msec]
 set uttTiming(preCount) 3                 ;# 音声再生前にメトロノームを鳴らす回数

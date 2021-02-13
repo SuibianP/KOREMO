@@ -7,3 +7,5 @@
 *.dylib
 *.bin
 oremo-init.tcl
+build/
+oremo.kit
