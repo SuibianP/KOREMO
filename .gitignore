@@ -1,0 +1,9 @@
+*.exe
+*.dll
+*.lib
+*.so
+*.a
+*.o
+*.dylib
+*.bin
+oremo-init.tcl
